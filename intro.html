@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Baphomet Server Intro</title>
+
+<!-- ★ Great Vibes 필기체 로드 -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background: #000;
+    }
+.footer {
+    position: fixed;          /* 화면 고정 */
+    bottom: 10px;             /* 화면 아래에서 10px 위 */
+    left: 50%;
+    transform: translateX(-50%);
+
+    font-size: 12px;
+    color: rgba(210, 210, 210, 0.65);
+    text-align: center;
+    line-height: 1.4;
+
+    z-index: 9999;            /* 영상 위에 항상 표시 */
+    width: 100%;
+    pointer-events: none;     /* 클릭 방해 X */
+}
+
+
+    /* 🔥 영상 크기 축소 */
+    #introVideo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 70%;
+        height: 70%;
+        transform: translate(-50%, -50%);
+        object-fit: contain;
+        background: #000;
+        z-index: 1;
+    }
+
+    /* 🔥 인트로 문구 (더 작게 + 더 아래 위치) */
+    #mainTitle {
+        position: absolute;
+        bottom: calc(50% + 30%); /* 기존보다 아래로(=영상에 더 가까움) */
+        left: 50%;
+        transform: translateX(-50%);
+
+        font-family: 'Great Vibes', cursive;
+        font-size: 28px;      /* ★ 글씨 크기 축소 */
+        color: #ffffff;
+        letter-spacing: 2px;
+        white-space: nowrap;
+
+        text-shadow:
+            -2px -2px 0 #ff0000,
+             2px -2px 0 #ff0000,
+            -2px  2px 0 #ff0000,
+             2px  2px 0 #ff0000,
+            0 0 8px #ff0000,
+            0 0 20px #aa0000;
+
+        opacity: 0;
+        animation: fadeIn 1.7s ease-out forwards;
+        z-index: 3;
+        pointer-events: none;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+        to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    /* Skip 버튼 */
+    #skipBtn {
+        position: absolute;
+        right: 30px;
+        bottom: 40px;
+        padding: 12px 20px;
+        background: rgba(0,0,0,0.6);
+        border: 1px solid #ff3333;
+        border-radius: 8px;
+
+        font-size: 17px;
+        color: #fff;
+        cursor: pointer;
+        z-index: 5;
+    }
+
+    #skipBtn:hover {
+        background: rgba(120,0,0,0.7);
+    }
+</style>
+</head>
+
+<body>
+
+<!-- 🎬 인트로 영상 -->
+<video id="introVideo" autoplay muted>
+    <source src="intro.mp4" type="video/mp4">
+</video>
+
+<!-- 🔥 인트로 문구 -->
+<div id="mainTitle">바포메트 서버! 지금, 전설이 시작된다!</div>
+
+<!-- Skip 버튼 -->
+<div id="skipBtn" onclick="goHome()">Skip →</div>
+
+<script>
+    const video = document.getElementById("introVideo");
+
+    /* 4초부터 재생 */
+    video.addEventListener("loadedmetadata", () => {
+        video.currentTime = 4;
+        video.play();
+    });
+
+    /* 70초에서 자동 종료 */
+    video.addEventListener("timeupdate", () => {
+        if (video.currentTime >= 70) {
+            goHome();
+        }
+    });
+
+    function goHome() {
+        window.location.href = "index.html";
+    }
+</script>
+<!-- 공통 하단 안내 -->
+<div class="footer">
+    서버의 모든 저작권은 NC소프트에 있으며, 리니지 개발과 발전, 커뮤니티를 위한 서버입니다.<br>
+    게임사의 요청 시 서버는 언제든지 중단될 수 있음을 알려드립니다.
+</div>
+</body>
+</html>
